@@ -1,9 +1,9 @@
 GmailSync
 =========
 
-> A script that facilitates transfer of mail from one Gmail account to 
-> another. During the transfer all To, From, Cc and Bcc headers matching the 
-> old account are rewritten to match the new account.
+A script that facilitates transfer of mail from one Gmail account to another. 
+During the transfer all To, From, Cc and Bcc headers matching the old account 
+are rewritten to match the new account.
 
 Synopsis
 --------
@@ -46,12 +46,13 @@ Synopsis
 Description
 -----------
 
-> Requires: [imapsync][]
+**Requires:** [imapsync][]
 
 GmailSync is a specialised script designed to facilitate transfer of mail from
 one gmail account to another. This need frequently arises when a user opens up 
-either a new gmail or google apps account and wishes to transfer all their 
-existing mail from the old account to the new one.
+either a new gmail or moves from their existing account to a new google apps 
+account and wishes to transfer all their existing mail from the old account to 
+the new one.
 
 This script is a wrapper around [imapsync][] script, thus [imapsync][] is 
 required in order to use this script.
@@ -59,11 +60,7 @@ required in order to use this script.
 TODO
 ----
 
-* Implement [argument] support, so that users could provide a custom 
-  configuration file. Users should be able to override values configured in 
-  this file using command line arguments.
-
-* Implement -f (--folder) option to allow users to supply a custom list of 
-  mail folders (aka labels) which are to be synchronised between two accounts.
+* Implement [argument] support, to allow users to supply a custom list of mail 
+  folders (aka labels) which are to be synchronised between two accounts.
 
 [imapsync]: http://imapsync.lamiral.info/ "Official imapsync migration tool"
