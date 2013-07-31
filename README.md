@@ -8,7 +8,7 @@ are rewritten to match the new account.
 Synopsis
 --------
 
-    gmailsync [options] [TODO:argument]
+    gmailsync [options] [argument]
 
         Where [arguments] is an optional, space separated list of folders 
         which the user would like to synchronise between two accounts. While 
@@ -16,6 +16,7 @@ Synopsis
 
         Server connection details:
 
+        -i --imapsync=path      Location of the imapsync script
         -l --log=path           Log output to a file
         -r --report=email       Email activity log to this address
         -t --timeout=seconds    Timeout between server operations
@@ -57,10 +58,6 @@ the new one.
 This script is a wrapper around [imapsync][] script, thus [imapsync][] is 
 required in order to use this script.
 
-TODO
-----
 
-* Implement [argument] support, to allow users to supply a custom list of mail 
-  folders (aka labels) which are to be synchronised between two accounts.
 
 [imapsync]: http://imapsync.lamiral.info/ "Official imapsync migration tool"
