@@ -293,11 +293,14 @@ done
 # Clear all options and reset the command line argument count
 shift $(( OPTIND -1 ))
 
-# Fail if invalid command line argument was given
+# Account for an option-terminator string
+if [[ "${1}" = "--" ]]; then
+    shift
+fi
+
+# Convert command line arguments into a list of folders
 if [[ ${!#} != ${0} ]]; then
-    echo "${0}: illegal argument -- ${!#}" >&2
-    __help
-    exit 1
+    CFG_FOLDERS=( "${@}")
 fi
 
 # Verify that imapsync command exists
