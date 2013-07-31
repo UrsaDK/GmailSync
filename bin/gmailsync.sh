@@ -118,7 +118,8 @@ Usage:
 
         Server connection details:
 
-        -l --log=path           Log output to a file
+        -i --imapsync=path      Location of the imapsync script
+        -l --log=path           Log output to a specified file
         -r --report=email       Email activity log to this address
         -t --timeout=seconds    Timeout between server operations
 
@@ -176,7 +177,7 @@ log() {
 # trick it into doing so by defining '-:' as part of the optspec. This 
 # exploits a non-standard behaviour of the shell which permits the 
 # option-argument to be concatenated to the option, eg: "-f arg" == "-farg"
-while getopts "l:r:t:q?-:" GETOPT; do
+while getopts "i:l:r:t:q?-:" GETOPT; do
     case ${GETOPT} in
         -)
             OPTKEY=`echo ${OPTARG} | sed -e 's/=.*//'`
@@ -193,6 +194,10 @@ while getopts "l:r:t:q?-:" GETOPT; do
 
             # Process all long option key and their values
             case ${OPTKEY} in
+                imapsync)
+                    require_OPTARG
+                    BIN_IMAPSYNC=${OPTARG}
+                    ;;
                 log)
                     require_OPTARG
                     CFG_LOGFILE=${OPTARG}
@@ -262,6 +267,9 @@ while getopts "l:r:t:q?-:" GETOPT; do
             esac
             ;;
 
+        i)
+            BIN_IMAPSYNC=${OPTARG}
+            ;;
         l)
             CFG_LOGFILE=${OPTARG}
             ;;
@@ -292,12 +300,12 @@ if [[ ${!#} != ${0} ]]; then
     exit 1
 fi
 
-# Initialise script destructor
-trap __exit EXIT
-
-#
-# Primary script code
-#
+# Verify that imapsync command exists
+if [[ ! -x ${BIN_IMAPSYNC} ]]; then
+    echo "${0}: illegal configuration -- imapsync command is missing" >&2
+    __help
+    exit 1
+fi
 
 # Verify that the username and password are supplied for both IMAP servers
 for i in 1 2; do
@@ -308,16 +316,25 @@ for i in 1 2; do
 
     # Terminate execution if user, host or port are missing
     if [[ -z ${!user} ]] || [[ -z ${!host} ]] || [[ -z ${!port} ]]; then
-        echo "${0}: illegal configuration"
-        echo "All of the following must be defined:"
-        echo "    username, password, hostname and port"
+        echo "${0}: illegal configuration -- define all of the following:" >&2
+        echo "   Server 1: username, password, hostname and port" >&2
+        echo "   Server 2: username, password, hostname and port" >&2
+        exit 1
     fi
 
     # Request the user to enter a password if it is missing
     if [[ ! ${!pass} ]] || [[ -z ${!pass} ]]; then
         read -rsp "Please enter password for ${!user}:" ${!pass}
+        echo
     fi
 done
+
+# Initialise script destructor
+trap __exit EXIT
+
+#
+# Primary script code
+#
 
 # Configure imapsync to rewrite old account mail address to the new one
 ESC_USER1=`echo ${CFG_USER1} | sed 's/@/\\\\@/'`
@@ -355,6 +372,7 @@ for folder in "${CFG_FOLDERS[@]}"; do
         log ""
 
         # Run command until it succeeds
+        echo "${BIN_IMAPSYNC} ${ARG_IMAPSYNC} ${arg_stagger}"
         until `${BIN_IMAPSYNC} ${ARG_IMAPSYNC} ${arg_stagger}`; do
             # Tell logfile what we are doing
             log ""
