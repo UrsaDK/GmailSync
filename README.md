@@ -49,7 +49,7 @@ Description
 
 **Requires:** [imapsync][]
 
-GmailSync is a specialised script designed to facilitate transfer of mail from
+GmailSync is a specialised script designed to facilitate transfer of mail from 
 one gmail account to another. This need frequently arises when a user opens up 
 either a new gmail or moves from their existing account to a new google apps 
 account and wishes to transfer all their existing mail from the old account to 
