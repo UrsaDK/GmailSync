@@ -1,55 +1,6 @@
-#!/bin/bash
-#
-# Master copy of this file is stored in the vcs repository. Make sure that all 
-# stable changes are tested and committed to that repository or they will be 
-# overwritten and lost upon next checkout.
-#
-# Copyright (c) 2011, Dmytro Konstantinov.  All rights reserved.
-#
-# LICENSE: http://opensource.org/licenses/bsd-license.php BSD
-#
-# Redistribution and use in source and binary forms, with or without 
-# modification, are permitted provided that the following conditions are met:
-#
-# * Redistributions of source code must retain the above copyright notice, 
-#   this list of conditions and the following disclaimer.
-#
-# * Redistributions in binary form must reproduce the above copyright notice, 
-#   this list of conditions and the following disclaimer in the documentation 
-#   and/or other materials provided with the distribution.
-#
-# * Neither the name of the Solar project nor the names of its contributors 
-#   may be used to endorse or promote products derived from this software 
-#   without specific prior written permission.
-#
-# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
-# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
-# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
-# ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE 
-# LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
-# CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
-# SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS 
-# INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
-# CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
-# ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
-# POSSIBILITY OF SUCH DAMAGE.
-#
+#!/usr/bin/env bash
 
 VERSION='1.1.0'
-
-#
-# CHANGE LOG
-#
-# 1.1   @author Dmytro Konstantinov <umka.dk@gmail.com>
-#
-#       Added a user friendly help message and support for command line 
-#       parameters. Improved error handling: the script now exit with error 
-#       code as per shell standard, all error messages are logged via STDERR.
-#
-# 1.0   @author Dmytro Konstantinov <umka.dk@gmail.com>
-#
-#       Initial release of the code.
-#
 
 # List default folders that we would like to transfer
 CFG_FOLDERS=( 'INBOX' 'All Mail' 'Bin' 'Drafts' 'Starred' 'Sent Mail' )
@@ -63,7 +14,7 @@ CFG_REPORT=''
 # Configure system timeout (in seconds)
 CFG_TIMEOUT=10
 
-# Define parameters for the origin (from) account 
+# Define parameters for the origin (from) account
 CFG_USER1=''
 CFG_PASS1=''
 CFG_HOST1='imap.gmail.com'
@@ -89,7 +40,7 @@ ARG_IMAPSERV1='--ssl1 --authmech1 LOGIN --split1 100'
 ARG_IMAPSERV2='--ssl2 --authmech2 LOGIN --split2 100'
 
 # Configure imapsync parameters for staggered mail transfer by message age
-ARGS_STAGGER=( 
+ARGS_STAGGER=(
     '--minage 1090'
     '--maxage 1091 --minage 999'
     '--maxage 1000 --minage 908'
@@ -105,15 +56,15 @@ ARGS_STAGGER=(
     '--maxage 90'
 )
 
-# Document available command line options. This is a simple function that 
+# Document available command line options. This is a simple function that
 # simply outputs script's SYNOPSIS to the user terminal.
 __help() {
 cat << EOF
 Usage:
     ${0} [options] [arguments]
 
-        Where [arguments] is an optional, space separated list of folders 
-        which the user would like to synchronise between two accounts. While 
+        Where [arguments] is an optional, space separated list of folders
+        which the user would like to synchronise between two accounts. While
         [options] could be any of the following:
 
         Server connection details:
@@ -143,14 +94,14 @@ Usage:
         -? --help               Display this help message
         --version               Script and BASH version info
 
-    NOTE: If password to either account is not supplied then it will be 
+    NOTE: If password to either account is not supplied then it will be
     requested from the user during normal script execution.
 
 EOF
 }
 
-# This function is called when the script receives an EXIT signal. It 
-# simulates a common destructor behaviour inside BASH scripts. It allows this 
+# This function is called when the script receives an EXIT signal. It
+# simulates a common destructor behaviour inside BASH scripts. It allows this
 # script to free and clean up resources upon termination.
 __exit() {
     # Send report to an email address
@@ -173,9 +124,9 @@ log() {
 
 # Provide support for command line options.
 #
-# By default BASH does not provide support for long options. However, we can 
-# trick it into doing so by defining '-:' as part of the optspec. This 
-# exploits a non-standard behaviour of the shell which permits the 
+# By default BASH does not provide support for long options. However, we can
+# trick it into doing so by defining '-:' as part of the optspec. This
+# exploits a non-standard behaviour of the shell which permits the
 # option-argument to be concatenated to the option, eg: "-f arg" == "-farg"
 while getopts "i:l:r:t:q?-:" GETOPT; do
     case ${GETOPT} in
@@ -342,7 +293,7 @@ trap __exit EXIT
 # Configure imapsync to rewrite old account mail address to the new one
 ESC_USER1=`echo ${CFG_USER1} | sed 's/@/\\\\@/'`
 ESC_USER2=`echo ${CFG_USER2} | sed 's/@/\\\\@/'`
-ARGS_REWRITE=( 
+ARGS_REWRITE=(
     "s/Delivered-To: ${ESC_USER1}/Delivered-To: ${ESC_USER2}/gi"
     "s/<${ESC_USER1}>/<${ESC_USER2}>/gi"
     "s/^((To|From|Cc|Bcc):.*)${ESC_USER1}(.*)$/\$1${ESC_USER2}\$3/gim"
@@ -366,7 +317,7 @@ for folder in "${CFG_FOLDERS[@]}"; do
     # Tell user what we are doing
     say "Processing folder: ${folder}"
 
-    # Process message chunks in folders 
+    # Process message chunks in folders
     for arg_stagger in "${ARGS_STAGGER[@]}"; do
         # Tell user & log what we are about to do
         say "  Retrieving time period : ${arg_stagger}"
@@ -389,7 +340,7 @@ for folder in "${CFG_FOLDERS[@]}"; do
                 log ${message} "-n"
                 sleep ${CFG_TIMEOUT}
             fi
-  
+
             log "Done."
         done
 
@@ -403,4 +354,3 @@ done
 # Terminate the script
 log "**** DONE ****"
 exit
-

@@ -1,17 +1,24 @@
 GmailSync
 =========
 
-A script that facilitates transfer of mail from one Gmail account to another. 
-During the transfer all To, From, Cc and Bcc headers matching the old account 
-are rewritten to match the new account.
+**Version:** 1.1.0  
+**Status:** Fully functional, but missing tests.
+
+A script that facilitates that facilitates transfer of mail from one Gmail account to another. During the transfer all To, From, Cc and Bcc headers matching the old account are rewritten to match the new account.
+
+Requirements
+------------
+
+- imapsync  
+  See: http://imapsync.lamiral.info
 
 Synopsis
 --------
 
     gmailsync [options] [argument]
 
-        Where [arguments] is an optional, space separated list of folders 
-        which the user would like to synchronise between two accounts. While 
+        Where [arguments] is an optional, space separated list of folders
+        which the user would like to synchronise between two accounts. While
         [options] could be any of the following:
 
         Server connection details:
@@ -41,23 +48,16 @@ Synopsis
         -? --help               Display this help message
         --version               Script and BASH version info
 
-    NOTE: If password to either account is not supplied then it will be 
+    NOTE: If password to either account is not supplied then it will be
     requested from the user during normal script execution.
 
-Description
------------
+Changelog
+---------
 
-**Requires:** [imapsync][]
+* 1.1
 
-GmailSync is a specialised script designed to facilitate transfer of mail from 
-one gmail account to another. This need frequently arises when a user opens up 
-either a new gmail or moves from their existing account to a new google apps 
-account and wishes to transfer all their existing mail from the old account to 
-the new one.
+  - Added a user friendly help message and support for command line parameters. Improved error handling: the script now exit with error code as per shell standard, all error messages are logged via STDERR.
 
-This script is a wrapper around [imapsync][] script, thus [imapsync][] is 
-required in order to use this script.
+* 1.0  
 
-
-
-[imapsync]: http://imapsync.lamiral.info/ "Official imapsync migration tool"
+  - Initial release of the code.
