@@ -4,7 +4,7 @@ GmailSync
 **Version:** 1.2.0  
 **Status:** Fully functional, but missing tests.
 
-A script that facilitates that facilitates transfer of mail from one Gmail account to another. During the transfer all To, From, Cc and Bcc headers matching the old account are rewritten to match the new account.
+A script to facilitate migration of mail from one Gmail account to another. During the migration all To, From, Cc and Bcc headers matching the old account are rewritten to match the new account.
 
 Requirements
 ------------
