@@ -1,7 +1,7 @@
 GmailSync
 =========
 
-**Version:** 1.1.0  
+**Version:** 1.2.0  
 **Status:** Fully functional, but missing tests.
 
 A script that facilitates that facilitates transfer of mail from one Gmail account to another. During the transfer all To, From, Cc and Bcc headers matching the old account are rewritten to match the new account.
@@ -9,33 +9,33 @@ A script that facilitates that facilitates transfer of mail from one Gmail accou
 Requirements
 ------------
 
-- imapsync  
-  See: http://imapsync.lamiral.info
+- imapsync -- IMAP transfers tool, see http://imapsync.lamiral.info
+
+- mail -- a command line mail utility used to send and receive mail
 
 Synopsis
 --------
 
     gmailsync [options] [argument]
 
-        Where [arguments] is an optional, space separated list of folders
-        which the user would like to synchronise between two accounts. While
-        [options] could be any of the following:
+    A wrapper around imapsync to help with migration of gmail accounts.
+
+        Options                 All options are optional and
+        -------                 can be supplied in any order.
 
         Server connection details:
 
         -i --imapsync=path      Location of the imapsync script
-        -l --log=path           Log output to a file
-        -r --report=email       Email activity log to this address
         -t --timeout=seconds    Timeout between server operations
 
-        Properties of the origin (from) IMAP account:
+        Source properties (from):
 
         --user1=username        Account username (gmail address)
         --pass1=password        Account password
         --host1=hostname        Hostname or IP address
         --port1=number          Port on which IMAP is listening
 
-        Properties of the destination (to) IMAP account:
+        Target properties (to):
 
         --user2=username        Account username (gmail address)
         --pass2=password        Account password
@@ -44,20 +44,46 @@ Synopsis
 
         Generic output options:
 
+        -r --report=email       Email activity log to this address
+        -l --log=path           Log output to a file
         -q --quiet              Suppress output of the script
         -? --help               Display this help message
         --version               Script and BASH version info
 
-    NOTE: If password to either account is not supplied then it will be
-    requested from the user during normal script execution.
+        Arguments               All agruments are optional and
+        ---------               can be supplied in any order.
+
+        A list of folders (space separated) which are to be
+        synchronise between the accounts.
+
+    <> - required parameters    [] - optional parameters
+    Use 'less ${0}' to view further documentation.
 
 Changelog
 ---------
 
-* 1.1
+* 1.2.0
+
+  - The script no longer deletes it's log file
+  - Default values for all options can now be set by defining a GMAILSYNC_LONG_OPTION_NAME variables (all caps). For example, defining `export GMAILSYNC_IMAPSYNC=/bin/true` will use `/bin/true` as the default value for `--imapsync` option.
+
+* 1.1.0
 
   - Added a user friendly help message and support for command line parameters. Improved error handling: the script now exit with error code as per shell standard, all error messages are logged via STDERR.
 
-* 1.0  
+* 1.0.0
 
   - Initial release of the code.
+
+Donations
+---------
+
+This script is 100% free and is distributed under the terms of the MIT license. You're welcome to use it for private or commercial projects and to generally do whatever you want with it.
+
+If you found this script useful, would like to support its further development, or you are just feeling generous, then your contribution will be greatly appreciated!
+
+<p align="center">
+  <a href="https://paypal.me/UmkaDK"><img src="https://img.shields.io/badge/paypal-me-blue.svg?colorB=0070ba&logo=paypal" alt="PayPal.Me"></a>
+  &nbsp;
+  <a href="https://commerce.coinbase.com/checkout/252e79ee-242f-40bc-9351-1538145061fa"><img src="https://img.shields.io/badge/coinbase-donate-gold.svg?colorB=ff8e00&logo=bitcoin" alt="Donate via Coinbase"></a>
+</p>
