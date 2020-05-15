@@ -57,7 +57,7 @@ A script to facilitate migration of mail from one Gmail account to another. Duri
         -? --help               Display this help message
         --version               Script and BASH version info
 
-        Arguments               All agruments are optional and
+        Arguments               All arguments are optional and
         ---------               can be supplied in any order.
 
         A list of folders (space separated) which are to be
