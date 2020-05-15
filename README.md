@@ -1,20 +1,24 @@
-GmailSync
-=========
+<div align="center">
 
-**Version:** 1.2.0  
-**Status:** Fully functional, but missing tests.
+  [![GmailSync logo](https://avatars.githubusercontent.com/u/2833247?s=160)](#)<br>
+
+  [![stable branch](https://img.shields.io/badge/dynamic/json.svg?logo=github&color=lightgrey&label=stable&query=%24.default_branch&url=https%3A%2F%2Fapi.github.com%2Frepos%2FUrsaDK%2FGmailSync)](https://github.com/UrsaDK/GmailSync)
+  [![latest release](https://img.shields.io/badge/dynamic/json.svg?logo=github&color=blue&label=release&query=%24.name&url=https%3A%2F%2Fapi.github.com%2Frepos%2FUrsaDK%2FGmailSync%2Freleases%2Flatest)](https://github.com/UrsaDK/GmailSync/releases/latest)
+  [![test coverage](https://codecov.io/gh/UrsaDK/GmailSync/graph/badge.svg)](https://codecov.io/gh/UrsaDK/GmailSync)
+  [![donate link](https://img.shields.io/badge/donate-coinbase-gold.svg?colorB=ff8e00&logo=bitcoin)](https://commerce.coinbase.com/checkout/c97803c0-459a-4994-b940-9ae197d176b8)
+
+</div>
+
+# GmailSync
 
 A script to facilitate migration of mail from one Gmail account to another. During the migration all To, From, Cc and Bcc headers matching the old account are rewritten to match the new account.
 
-Requirements
-------------
+## Requirements
 
-- imapsync -- IMAP transfers tool, see http://imapsync.lamiral.info
+  - `imapsync` - IMAP transfers tool, see http://imapsync.lamiral.info
+  - `mail` - a command line mail utility used to send and receive mail
 
-- mail -- a command line mail utility used to send and receive mail
-
-Synopsis
---------
+## Synopsis
 
     gmailsync [options] [argument]
 
@@ -58,32 +62,3 @@ Synopsis
 
     <> - required parameters    [] - optional parameters
     Use 'less ${0}' to view further documentation.
-
-Changelog
----------
-
-* 1.2.0
-
-  - The script no longer deletes it's log file
-  - Default values for all options can now be set by defining a GMAILSYNC_LONG_OPTION_NAME variables (all caps). For example, defining `export GMAILSYNC_IMAPSYNC=/bin/true` will use `/bin/true` as the default value for `--imapsync` option.
-
-* 1.1.0
-
-  - Added a user friendly help message and support for command line parameters. Improved error handling: the script now exit with error code as per shell standard, all error messages are logged via STDERR.
-
-* 1.0.0
-
-  - Initial release of the code.
-
-Donations
----------
-
-This script is 100% free and is distributed under the terms of the MIT license. You're welcome to use it for private or commercial projects and to generally do whatever you want with it.
-
-If you found this script useful, would like to support its further development, or you are just feeling generous, then your contribution will be greatly appreciated!
-
-<p align="center">
-  <a href="https://paypal.me/UmkaDK"><img src="https://img.shields.io/badge/paypal-me-blue.svg?colorB=0070ba&logo=paypal" alt="PayPal.Me"></a>
-  &nbsp;
-  <a href="https://commerce.coinbase.com/checkout/252e79ee-242f-40bc-9351-1538145061fa"><img src="https://img.shields.io/badge/coinbase-donate-gold.svg?colorB=ff8e00&logo=bitcoin" alt="Donate via Coinbase"></a>
-</p>
