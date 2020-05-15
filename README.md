@@ -13,6 +13,10 @@
 
 A script to facilitate migration of mail from one Gmail account to another. During the migration all To, From, Cc and Bcc headers matching the old account are rewritten to match the new account.
 
+- [Requirements](#requirements)
+- [Synopsis](#synopsis)
+- [Changelog](#changelog)
+
 ## Requirements
 
   - `imapsync` - IMAP transfers tool, see http://imapsync.lamiral.info
@@ -62,3 +66,23 @@ A script to facilitate migration of mail from one Gmail account to another. Duri
 
     <> - required parameters    [] - optional parameters
     Use 'less ${0}' to view further documentation.
+
+## Changelog
+
+ * 1.2.1
+
+    - Bumped version number to get releases working on GitHub.
+    - Updated documentation.
+
+ * 1.2.0
+
+   - The script no longer deletes it's log file
+   - Default values for all options can now be set by defining a GMAILSYNC_LONG_OPTION_NAME variables (all caps). For example, defining `export GMAILSYNC_IMAPSYNC=/bin/true` will use `/bin/true` as the default value for `--imapsync` option.
+
+ * 1.1.0
+
+   - Added a user friendly help message and support for command line parameters. Improved error handling: the script now exit with error code as per shell standard, all error messages are logged via STDERR.
+
+ * 1.0.0
+
+   - Initial release of the code.
