@@ -4,7 +4,6 @@
 
   [![stable branch](https://img.shields.io/badge/dynamic/json.svg?logo=github&color=lightgrey&label=stable&query=%24.default_branch&url=https%3A%2F%2Fapi.github.com%2Frepos%2FUrsaDK%2FGmailSync)](https://github.com/UrsaDK/GmailSync)
   [![latest release](https://img.shields.io/badge/dynamic/json.svg?logo=github&color=blue&label=release&query=%24.name&url=https%3A%2F%2Fapi.github.com%2Frepos%2FUrsaDK%2FGmailSync%2Freleases%2Flatest)](https://github.com/UrsaDK/GmailSync/releases/latest)
-  [![test coverage](https://codecov.io/gh/UrsaDK/GmailSync/graph/badge.svg)](https://codecov.io/gh/UrsaDK/GmailSync)
   [![donate link](https://img.shields.io/badge/donate-coinbase-gold.svg?colorB=ff8e00&logo=bitcoin)](https://commerce.coinbase.com/checkout/252e79ee-242f-40bc-9351-1538145061fa)
 
 </div>
